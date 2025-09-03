@@ -1,0 +1,18 @@
+services:
+  astro:
+    build:
+      context: .
+    expose:
+      - "4321"
+    environment:
+      - HOST=0.0.0.0
+      - MAILERLITE_API_TOKEN=${MAILERLITE_API_TOKEN}
+      - MAILERLITE_GROUP_ID=${MAILERLITE_GROUP_ID}
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "1120:8080"
+    depends_on:
+      - astro

@@ -1,0 +1,59 @@
+---
+// No props needed. Drop this component into any Astro page.
+import Logo from '../assets/favicon-192x192.png';
+---
+<section class="relative isolate overflow-hidden">
+  <!-- animowane orby tła -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="hero-orb orb-3 hidden sm:block"></div>
+  </div>
+  <div class="relative z-10 mx-auto max-w-5xl px-6 pt-20 pb-10 text-center sm:pt-28">
+    <!-- Logo -->
+    <div class="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-xl reveal-up" style="transition-delay:40ms">
+      <!-- abstract logo -->
+        <img src={Logo.src} alt="Enginnering Room logo" class="h-15 w-15"/>
+    </div>
+
+    <!-- Subheadline (moved here instead of eyebrow) -->
+    
+
+    <!-- Heading -->
+    <h1 class="mx-auto max-w-4xl text-4xl font-extrabold leading-[1.1] tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+      <span class="block">Software Architecture Deep Dive</span>
+      <span class="block text-lg sm:text-xl md:text-4xl">Zostań architektem, którego biznes i zespół naprawdę potrzebuje</span>
+    </h1>
+
+    <p class="mx-auto mt-5 max-w-3xl text-base text-gray-600 sm:text-lg hero-pop" style="animation-delay:120ms">
+      To nie kolejny nudny wykład o wzorcach, ale interaktywne szkolenie, w którym ćwiczysz realne decyzje architektoniczne, dostajesz gotowe frameworki i uczysz się ich używać w praktyce.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+      <a href="#cta-newsletter" class="relative z-20 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-white shadow transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-accent/20 lift hero-pop hero-cta-pulse" style="animation-delay:.45s, .8s">
+        <span>Zapisz się na kurs</span>
+        <span aria-hidden="true" class="inline-block">→</span>
+      </a>
+    </div>
+
+    <!-- Feature row -->
+    <!--<div class="mt-12 grid grid-cols-1 justify-items-center gap-4 text-sm text-gray-600 sm:grid-cols-3">-->
+    <!--  <div class="flex items-center gap-2 hero-pop" style="animation-delay:.6s">-->
+    <!--    &lt;!&ndash; lightning icon &ndash;&gt;-->
+    <!--    <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 11-12h-7l1-8z"/></svg>-->
+    <!--    <span>Quick setup guide</span>-->
+    <!--  </div>-->
+    <!--  <div class="flex items-center gap-2 hero-pop" style="animation-delay:.65s">-->
+    <!--    &lt;!&ndash; grid icon &ndash;&gt;-->
+    <!--    <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>-->
+    <!--    <span>Fully customizable</span>-->
+    <!--  </div>-->
+    <!--  <div class="flex items-center gap-2 hero-pop" style="animation-delay:.7s">-->
+    <!--    &lt;!&ndash; wrench icon &ndash;&gt;-->
+    <!--    <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2l-6 6"/><circle cx="7" cy="17" r="3"/><path d="M3.5 20.5l7.5-7.5"/><path d="M16 8a5 5 0 11-6-6 7 7 0 006 6z"/></svg>-->
+    <!--    <span>MIT Open Source</span>-->
+    <!--  </div>-->
+    <!--</div>-->
+  </div>
+</section>

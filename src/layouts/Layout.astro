@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content="Engineering Room" />
+		<meta name="keywords" content="architektura oprogramowania, .NET" />
+		<title>Engineering Room</title>
+	</head>
+	<body>
+		<slot />
+    <script>
+      // Minimal IntersectionObserver do ujawniania elementów w scrollu
+      (function () {
+        const selector = '.reveal, .reveal-up, .reveal-down, .reveal-left, .reveal-right';
+        const elements = Array.from(document.querySelectorAll(selector));
+        if (elements.length === 0) return;
+
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReduced) {
+          elements.forEach(el => el.classList.add('is-visible'));
+          return;
+        }
+
+        const io = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              io.unobserve(entry.target);
+            }
+          }
+        }, { root: null, threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+        elements.forEach((el) => io.observe(el));
+      })();
+    </script>
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+</style>

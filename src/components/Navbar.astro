@@ -1,0 +1,118 @@
+---
+import Logo from '../assets/favicon-192x192.png';
+---
+<!-- NAVBAR -->
+<nav class="fixed top-0 w-full z-50 bg-white border-b border-gray-200 shadow-sm reveal-down" style="transition-delay:20ms">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+            <!-- Logo -->
+            <a href="/" class="flex items-center gap-2">
+                <img src={Logo.src} alt="Engineering Room logo" class="h-8 w-8"/>
+                <span class="font-semibold text-gray-900">Software Architecture Deep Dive</span>
+            </a>
+
+            <!-- Desktop links -->
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+                <a href="#benefits" class="hover:text-accent transition-colors">Why?</a>
+                <a href="#agenda" class="hover:text-accent transition-colors">Agenda</a>
+                <!-- <a href="/guides" class="hover:text-accent transition-colors">Edukacja</a> -->
+                <!-- <a href="/roadmap" class="hover:text-accent transition-colors">Roadmapa</a> -->
+                <a href="#community" class="hover:text-accent transition-colors">Community</a>
+                <a href="#faq" class="hover:text-accent transition-colors">FAQ</a>
+            </div>
+
+            <!-- Desktop CTA + Lang + GitHub -->
+            <div class="hidden md:flex items-center gap-4">
+                <a href="#cta-kurs" class="rounded-md bg-accent px-3 py-1.5 text-sm text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-accent/20 lift">Dołącz</a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <button id="mobileMenuButton"
+                    class="md:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-accent/30 transition"
+                    aria-controls="mobileMenu"
+                    aria-expanded="false"
+                    aria-label="Open main menu">
+                <!-- Icon: hamburger -->
+                <svg id="iconHamburger" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
+                </svg>
+                <!-- Icon: close -->
+                <svg id="iconClose" class="hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile panel -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-gray-200 bg-white" role="dialog" aria-label="Mobile menu">
+        <div class="px-4 py-4 space-y-1 text-gray-700">
+            <a href="#benefits" class="block rounded-md px-2 py-2 text-sm hover:bg-gray-50 hover:text-accent transition-colors">Why?</a>
+            <a href="#agenda" class="block rounded-md px-2 py-2 text-sm hover:bg-gray-50 hover:text-accent transition-colors">Agenda</a>
+            <a href="#community" class="block rounded-md px-2 py-2 text-sm hover:bg-gray-50 hover:text-accent transition-colors">Community</a>
+            <a href="#faq" class="block rounded-md px-2 py-2 text-sm hover:bg-gray-50 hover:text-accent transition-colors">FAQ</a>
+
+            <div class="pt-3 flex items-center justify-between">
+            <a href="#cta-kurs" class="rounded-md bg-accent px-3 py-2 text-sm text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-accent/20 transition lift">Dołącz</a>
+                <div class="flex items-center gap-2 text-sm text-gray-500" aria-label="Language switcher">
+                    <button class="hover:text-accent">PL</button>/<button class="hover:text-accent">EN</button>
+                </div>
+                <a href="https://github.com" class="hover:text-accent" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M12 2C6.48 2 2 6.58 2 12.18c0 4.48 2.87 8.28 6.84 9.63.5.09.68-.22.68-.48
+         0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.36-3.37-1.36-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63
+         1.01.07 1.54 1.06 1.54 1.06.89 1.54 2.34 1.1 2.91.84.09-.66.35-1.1.63-1.35-2.22-.26-4.55-1.13-4.55-5
+         0-1.1.39-2 .1-2.71 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.84c.85.01 1.7.12 2.5.35 1.9-1.29 2.74-1.02
+         2.74-1.02.54 1.39.19 2.42.1 2.71.61.68.99 1.57.99 2.65 0 3.87-2.34 4.73-4.57 4.98.36.31.68.92.68 1.85
+         0 1.33-.01 2.4-.01 2.73 0 .26.18.58.69.48A10.18 10.18 0 0 0 22 12.18C22 6.58 17.52 2 12 2z"/>
+                    </svg>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Add top padding to your main content -->
+<main class="pt-16">
+    <!-- page content -->
+</main>
+
+<script>
+    // @ts-nocheck
+    (function () {
+        const btn = document.getElementById('mobileMenuButton');
+        const menu = document.getElementById('mobileMenu');
+        const iconOpen = document.getElementById('iconHamburger');
+        const iconClose = document.getElementById('iconClose');
+
+        function toggleMenu() {
+            if (!menu || !iconOpen || !iconClose || !btn) return;
+            const isOpen = menu.classList.contains('hidden');
+            menu.classList.toggle('hidden', !isOpen);
+            iconOpen.classList.toggle('hidden', isOpen);
+            iconClose.classList.toggle('hidden', !isOpen);
+            btn.setAttribute('aria-expanded', String(isOpen));
+            btn.setAttribute('aria-label', isOpen ? 'Close main menu' : 'Open main menu');
+            if (isOpen) {
+                const first = menu.querySelector('a,button');
+                if (first && 'focus' in first && typeof first.focus === 'function') first.focus();
+            }
+        }
+
+        if (btn) btn.addEventListener('click', () => toggleMenu());
+
+        // Zamknij klawiszem ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (!menu || !iconOpen || !iconClose || !btn) return;
+                menu.classList.add('hidden');
+                iconOpen.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+                btn.setAttribute('aria-expanded', 'false');
+                if ('focus' in btn && typeof btn.focus === 'function') btn.focus();
+            }
+        });
+    })();
+</script>

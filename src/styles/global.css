@@ -1,0 +1,249 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #0A2540;
+    --color-primary-50: #F3F6FA;
+    --color-primary-100: #E0E7F0;
+    --color-primary-200: #B8C7DB;
+    --color-primary-300: #8AA3C2;
+    --color-primary-400: #4D6D96;
+    --color-primary-500: #24446A;
+    --color-primary-600: #0A2540; /* Twój główny */
+    --color-primary-700: #081C33;
+    --color-primary-800: #061627;
+    --color-primary-900: #040E1A;
+
+    --color-accent: #1A41FD;
+    --color-accent-50: #ECFDF9;
+    --color-accent-100: #D1FAF0;
+    --color-accent-200: #A7F3E0;
+    --color-accent-300: #6EE7CF;
+    --color-accent-400: #34D3B6;
+    --color-accent-500: #10BFA0;
+    --color-accent-600: #1ABC9C; /* Twój główny */
+    --color-accent-700: #0E9F86;
+    --color-accent-800: #0B7F6B;
+    --color-accent-900: #06594A;
+}
+
+/* Minimalistyczne animacje ujawniania i mikrointerakcje */
+:root {
+    --ease-standard: cubic-bezier(.22, .61, .36, 1);
+}
+
+/* Reveal on scroll - bazowe */
+.reveal,
+.reveal-up,
+.reveal-down,
+.reveal-left,
+.reveal-right {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .6s var(--ease-standard), transform .6s var(--ease-standard);
+    will-change: opacity, transform;
+}
+
+.reveal.is-visible,
+.reveal-up.is-visible,
+.reveal-down.is-visible,
+.reveal-left.is-visible,
+.reveal-right.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* Kierunki startowe */
+.reveal-down {
+    transform: translateY(-12px);
+}
+
+.reveal-left {
+    transform: translateX(-16px);
+}
+
+.reveal-right {
+    transform: translateX(16px);
+}
+
+/* Subtelne mikrointerakcje dla kart/linków */
+.lift:hover {
+    transform: translateY(-2px);
+}
+
+.lift,
+.lift:hover {
+    transition: transform .25s var(--ease-standard), box-shadow .25s var(--ease-standard);
+}
+
+/* Szanuj preferencje użytkownika */
+@media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal-up,
+    .reveal-down,
+    .reveal-left,
+    .reveal-right {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .lift,
+    .lift:hover,
+    .transition,
+    [class*="transition-"] {
+        transition: none !important;
+    }
+
+    .animate-spin {
+        animation: none !important;
+    }
+}
+
+/* --- HERO: mocniejsza animacja --- */
+.hero-shine {
+    background-image: linear-gradient(90deg, var(--color-accent) 0%, #8b5cf6 35%, #111827 65%, var(--color-accent) 100%);
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: hero-shine 6s ease-in-out .2s both infinite alternate;
+}
+
+@keyframes hero-shine {
+    0% {
+        background-position: 0% 50%;
+        filter: drop-shadow(0 0 0 rgba(81, 43, 212, 0));
+    }
+    50% {
+        filter: drop-shadow(0 6px 18px rgba(81, 43, 212, .16));
+    }
+    100% {
+        background-position: 100% 50%;
+        filter: drop-shadow(0 2px 8px rgba(81, 43, 212, .08));
+    }
+}
+
+.hero-pop {
+    opacity: 0;
+    transform: translateY(12px) scale(.985);
+    animation-name: hero-pop;
+    animation-duration: .7s;
+    animation-timing-function: var(--ease-standard);
+    animation-fill-mode: both;
+    animation-delay: .08s;
+}
+
+@keyframes hero-pop {
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.hero-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(60px);
+    opacity: .38;
+    mix-blend-mode: screen;
+}
+
+.hero-orb.orb-1 {
+    width: 520px;
+    height: 520px;
+    left: -140px;
+    top: -80px;
+    background: radial-gradient(closest-side, var(--color-accent), transparent 72%);
+    animation: float-1 12s ease-in-out infinite alternate;
+}
+
+.hero-orb.orb-2 {
+    width: 440px;
+    height: 440px;
+    right: -140px;
+    bottom: -120px;
+    background: radial-gradient(closest-side, #8b5cf6, transparent 72%);
+    animation: float-2 14s ease-in-out infinite alternate;
+}
+
+.hero-orb.orb-3 {
+    width: 380px;
+    height: 380px;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+    background: radial-gradient(closest-side, #60a5fa, transparent 72%);
+    animation: float-3 16s ease-in-out infinite alternate;
+    opacity: .35;
+}
+
+@keyframes float-1 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(18px, -16px);
+    }
+}
+
+@keyframes float-2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(-12px, 20px);
+    }
+}
+
+@keyframes float-3 {
+    0% {
+        transform: translate(-50%, 0);
+    }
+    100% {
+        transform: translate(-48%, 14px);
+    }
+}
+
+/* CTA subtle pulse to draw focus shortly after load */
+.hero-cta-pulse {
+    animation: cta-pulse 2.2s var(--ease-standard) .8s 2 both;
+}
+
+@keyframes cta-pulse {
+    0% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 10px 20px rgba(81, 43, 212, 0);
+    }
+    50% {
+        transform: translateY(-1px) scale(1.025);
+        box-shadow: 0 14px 28px rgba(81, 43, 212, .25);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 10px 20px rgba(81, 43, 212, .05);
+    }
+}
+
+.hero-pop.hero-cta-pulse {
+    /* nazwy */
+    animation-name: hero-pop, cta-pulse;
+    /* czasy trwania */
+    animation-duration: .7s, 2.2s;
+    /* timingi */
+    animation-timing-function: var(--ease-standard), var(--ease-standard);
+    /* fill-mode */
+    animation-fill-mode: both, both;
+    /* opóźnienia — pierwsze z inline style nadpisze tylko to pole */
+    animation-delay: .08s, .8s;
+    /* liczba powtórzeń */
+    animation-iteration-count: 1, 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-shine, .hero-pop, .hero-orb {
+        animation: none !important;
+        filter: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
