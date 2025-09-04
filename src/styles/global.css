@@ -247,3 +247,91 @@
         transform: none !important;
     }
 }
+
+/* --- Funding highlight animations --- */
+.funding-animate {
+    background-size: 220% 100%;
+    animation: funding-shimmer 11s ease-in-out .6s infinite alternate, funding-pop 1.1s var(--ease-standard) .4s 1 both;
+}
+
+@keyframes funding-shimmer {
+    0% {
+        background-position: 0% 50%;
+        box-shadow: 0 10px 24px rgba(16, 185, 129, .25);
+    }
+    100% {
+        background-position: 100% 50%;
+        box-shadow: 0 12px 30px rgba(16, 185, 129, .32);
+    }
+}
+
+@keyframes funding-pop {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-1px) scale(1.01);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .funding-animate {
+        animation: none !important;
+        background-size: auto !important;
+        box-shadow: none !important;
+    }
+}
+
+/* Subtelny puls dla "70%" */
+.percent-pulse {
+    display: inline-block;
+    animation: percent-pulse 1.8s var(--ease-standard) .8s infinite;
+    text-shadow: 0 0 0 rgba(255,255,255,0);
+}
+
+@keyframes percent-pulse {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 0 rgba(255,255,255,0);
+    }
+    50% {
+        transform: scale(1.06);
+        text-shadow: 0 4px 14px rgba(255,255,255,.35);
+    }
+    100% {
+        transform: scale(1);
+        text-shadow: 0 0 0 rgba(255,255,255,0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .percent-pulse { animation: none !important; text-shadow: none !important; }
+}
+
+/* Pulsująca ikona w bloku dofinansowania */
+.icon-pulse {
+    will-change: transform, box-shadow;
+    animation: icon-pulse 1.8s var(--ease-standard) .8s infinite;
+}
+
+@keyframes icon-pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(255,255,255,0.08);
+    }
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 10px 24px rgba(255,255,255,0.28);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(255,255,255,0.08);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .icon-pulse { animation: none !important; }
+}
