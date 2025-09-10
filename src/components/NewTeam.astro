@@ -1,0 +1,532 @@
+---
+// TeamSection.astro
+interface TeamMember {
+    id: number;
+    name: string;
+    role: string;
+    bio: string;
+    avatar: string;
+    skills: string[];
+}
+
+const teamMembers: TeamMember[] = [
+    {
+        id: 1,
+        name: "Mariusz Wadas",
+        role: "Software Architect, Trainer, Mentor",
+        bio: "Architekt oprogramowania i mentor z wieloletnim doświadczeniem w C#. Specjalizuje się w projektowaniu skalowalnych systemów, dzieląc się wiedzą i wspierając rozwój młodszych programistów.",
+        avatar: "/src/assets/mariusz_wadas_200x200_transparent.png",
+        skills: ["C#", "Net Core", "DDD", "Architecture", "TDD", "PSQL", "AWS"],
+    },
+    {
+        id: 2,
+        name: "Kamil Bączek",
+        role: "Software Architect, Trainer, Mentor",
+        bio: "Architekt oprogramowania i mentor z wieloletnim doświadczeniem w C#. Specjalizuje się w projektowaniu skalowalnych systemów, dzieląc się wiedzą i wspierając rozwój młodszych programistów.",
+        avatar: "/src/assets/kamil_baczek_transparent.png",
+        skills: ["C#", "Net Core", "DDD", "Architecture"]
+    },
+    {
+        id: 3,
+        name: "Paweł Wadas",
+        role: "Software Architect, Trainer, Mentor",
+        bio: "Architekt oprogramowania i mentor z wieloletnim doświadczeniem w C#. Specjalizuje się w projektowaniu skalowalnych systemów, dzieląc się wiedzą i wspierając rozwój młodszych programistów.",
+        avatar: "/src/assets/pawelwadas-foto.png",
+        skills: ["C#", "Net Core", "DDD", "Architecture"]
+    }
+];
+
+const technologies = [
+    {name: "C#", icon: "/images/csharp.png", color: "bg-purple-500"},
+    {name: "Net Core", icon: "/images/netcore.png", color: "bg-purple-900"},
+    {name: "DDD", icon: "/images/ddd.png", color: "bg-grey-900"},
+    {name: "Architecture", icon: "/images/architecture.png", color: "bg-green-600"},
+    {name: "MSSQL", icon: "/images/mssql.svg", color: "bg-blue-400"},
+    {name: "Docker", icon: "🐳", color: "bg-blue-400"},
+    {name: "AWS", icon: "/images/azure.png", color: "bg-grey-300"},
+    {name: "TDD", icon: "/images/tdd.png", color: "bg-blue-200"}
+];
+---
+
+<section class="relative bg-transparent overflow-hidden">
+    <!-- Background decorative elements aligned with Hero color scheme -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
+        <div class="hero-orb orb-1"></div>
+        <div class="hero-orb orb-2"></div>
+        <div class="hero-orb orb-3 hidden sm:block"></div>
+    </div>
+
+    <div class="container mx-auto px-6 py-20 relative z-10">
+        <!-- Main content wrapper -->
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+            <!-- Left side - Team photo with floating technologies -->
+            <div class="relative">
+                <div class="relative h-[420px] sm:h-[520px] -ml-6 -mt-20 flex items-center justify-center">
+                    <!-- Background gradient circle -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-80 h-80 sm:w-96 sm:h-96 rounded-full opacity-25 blur-2xl" style="background: radial-gradient(closest-side, var(--color-accent), transparent 72%);"></div>
+                    </div>
+
+                    <!-- Team photo - creative arrangement of 3 people with rotation -->
+                    <div class="relative z-10 flex items-center justify-center">
+                        <div class="relative team-rotation-container">
+                            <!-- Team member 1 -->
+                            <div class="team-member-position absolute transition-all duration-1000 ease-in-out" data-position="center" data-member-id="1">
+                                <img 
+                                    src="/src/assets/mariusz_wadas_200x200_transparent.png" 
+                                    alt="Mariusz Wadas" 
+                                    class="team-photo rounded-2xl object-cover shadow-2xl border-4 border-white"
+                                />
+                                <div class="status-indicator absolute -bottom-2 -right-2 w-8 h-8 bg-green-400 rounded-full border-2 border-white"></div>
+                            </div>
+                            
+                            <!-- Team member 2 -->
+                            <div class="team-member-position absolute transition-all duration-1000 ease-in-out" data-position="left" data-member-id="2">
+                                <img 
+                                    src="/src/assets/kamil_baczek_transparent.png" 
+                                    alt="Kamil Bączek" 
+                                    class="team-photo rounded-2xl object-cover shadow-xl border-3 border-white"
+                                />
+                                <div class="status-indicator absolute -bottom-1 -right-1 w-6 h-6 bg-blue-400 rounded-full border-2 border-white"></div>
+                            </div>
+                            
+                            <!-- Team member 3 -->
+                            <div class="team-member-position absolute transition-all duration-1000 ease-in-out" data-position="right" data-member-id="3">
+                                <img 
+                                    src="/src/assets/pawelwadas-foto.png" 
+                                    alt="Paweł Wadas" 
+                                    class="team-photo rounded-2xl object-cover shadow-xl border-3 border-white"
+                                />
+                                <div class="status-indicator absolute -bottom-1 -right-1 w-6 h-6 bg-purple-400 rounded-full border-2 border-white"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating technology elements -->
+                    <div class="pointer-events-none absolute inset-0">
+                        {technologies.map((tech, i) => (
+                            (() => {
+                                const icon = tech.icon;
+                                const style = `--delay:${i * 0.8}s; --orbit:${i % 2 === 0 ? '1' : '-1'}`;
+                                if (typeof icon === 'string' && (icon.startsWith('/') || icon.startsWith('http'))) {
+                                    return (
+                                        <img
+                                            class="tech-floater w-10 h-10 object-contain"
+                                            style={style}
+                                            src={icon}
+                                            alt={tech.name}
+                                            loading="lazy"
+                                        />
+                                    );
+                                }
+                                return (
+                                    <span
+                                        class="tech-floater text-2xl"
+                                        style={style}
+                                    >
+                                        {icon}
+                                    </span>
+                                );
+                            })()
+                        ))}
+                    </div>
+                </div>
+
+                <!-- Bottom action bar pointing to team cards -->
+                <div class="mt-12 flex justify-center relative z-20">
+                    <div class="bg-white rounded-full p-4 shadow-lg flex items-center space-x-4">
+                        {teamMembers.map((member, index) => (
+                                <button type="button"
+                                        class={`member-nav-btn w-12 h-12 rounded-full flex items-center justify-center transition-colors ${index === 0 ? 'bg-red-200 hover:bg-red-300' : 'bg-gray-100 hover:bg-gray-200'}`}
+                                        data-member-id={member.id}
+                                >
+                                    <img
+                                            src={member.avatar}
+                                            alt={member.name}
+                                            class="w-8 h-8 rounded-full object-cover"
+                                    />
+                                </button>
+                        ))}
+                        <div class="w-px h-8 bg-gray-300 mx-2"></div>
+                        <button type="button" class="scroll-to-team w-12 h-12 bg-black rounded-full flex items-center justify-center text-white hover:bg-gray-800 transition-colors">
+                            <span class="text-xl">→</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right side - Team member profiles -->
+            <div class="space-y-6">
+                <div class="bg-transparent rounded-3xl p-8">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-2">Poznaj zespół</h2>
+                            <p class="text-gray-600">Wiedza za którą stoi doświadczenie:</p>
+                        </div>
+                    </div>
+
+                    <!-- Team member cards -->
+                    <div class="space-y-6" id="team-list">
+                        {teamMembers.map((member, index) => (
+                                <div
+                                        class={`team-member-card border border-gray-100 rounded-2xl cursor-pointer hover:shadow-lg transition-all duration-300 ${index === 0 ? 'bg-red-50 border-red-200' : 'hover:bg-gray-50'}`}
+                                        data-member-id={member.id}
+                                >
+                                    <div class="p-6 flex items-center justify-between">
+                                        <div class="flex items-center space-x-4">
+                                            <img
+                                                    src={member.avatar}
+                                                    alt={member.name}
+                                                    class="w-16 h-16 rounded-2xl object-cover shadow-md"
+                                            />
+                                            <div>
+                                                <h3 class="font-bold text-gray-900 text-lg">{member.name}</h3>
+                                                <p class="text-gray-600 text-sm">{member.role}</p>
+                                                <div class="flex flex-wrap gap-1 mt-2">
+                                                    {member.skills.slice(0, 2).map(skill => (
+                                                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-lg">{skill}</span>
+                                                    ))}
+                                                    {member.skills.length > 2 && (
+                                                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-lg">+{member.skills.length - 2}</span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="expand-btn w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-all duration-300">
+                                            <span class="text-sm transform transition-transform duration-300">+</span>
+                                        </button>
+                                    </div>
+                                    <!-- Expandable details section -->
+                                    <div class="member-details overflow-hidden transition-all duration-300 ease-in-out max-h-0">
+                                        <div class="p-6 pt-0 border-t border-gray-100">
+                                            <div class="mb-4">
+                                                <h4 class="font-semibold text-gray-900 mb-2">O mnie:</h4>
+                                                <p class="text-gray-700 leading-relaxed">{member.bio}</p>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-semibold text-gray-900 mb-2">Umiejętności:</h4>
+                                                <div class="flex flex-wrap gap-2">
+                                                    {member.skills.map(skill => (
+                                                            <span class="px-3 py-1 bg-blue-100 text-blue-700 text-sm rounded-full">{skill}</span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        ))}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .team-rotation-container {
+        width: 280px;
+        height: 280px;
+    }
+
+    .team-member-position {
+        transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .team-member-position[data-position="center"] {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        z-index: 20;
+    }
+    
+    .team-member-position[data-position="center"] .team-photo {
+        border-radius: 16px;
+    }
+
+    .team-member-position[data-position="left"] {
+        top: 50%;
+        left: 0;
+        transform: translate(-50%, -30%) scale(0.75) rotate(-6deg);
+        z-index: 10;
+    }
+
+    .team-member-position[data-position="right"] {
+        top: 50%;
+        right: 0;
+        transform: translate(50%, -30%) scale(0.75) rotate(6deg);
+        z-index: 10;
+    }
+
+    .team-photo {
+        width: 12rem;
+        height: 12rem;
+        transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .team-member-position[data-position="center"] .team-photo {
+        width: 18rem;
+        height: 14rem;
+    }
+
+    .team-member-position[data-position="left"] .team-photo,
+    .team-member-position[data-position="right"] .team-photo {
+        width: 9rem;
+        height: 9rem;
+    }
+
+    .status-indicator {
+        transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .tech-floater {
+        position: absolute;
+        animation: tech-float 6s ease-in-out infinite;
+        animation-delay: var(--delay);
+    }
+
+    .tech-floater:nth-child(1) { top: 10%; left: 15%; }
+    .tech-floater:nth-child(2) { top: 20%; right: 10%; }
+    .tech-floater:nth-child(3) { top: 70%; left: 8%; }
+    .tech-floater:nth-child(4) { top: 60%; right: 15%; }
+    .tech-floater:nth-child(5) { top: 35%; left: 5%; }
+    .tech-floater:nth-child(6) { top: 45%; right: 8%; }
+    .tech-floater:nth-child(7) { top: 85%; left: 20%; }
+    .tech-floater:nth-child(8) { top: 15%; right: 25%; }
+
+    @keyframes tech-float {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg) scale(1);
+        }
+        25% {
+            transform: translateY(-15px) rotate(calc(var(--orbit) * 5deg)) scale(1.05);
+        }
+        50% {
+            transform: translateY(-8px) rotate(calc(var(--orbit) * -3deg)) scale(0.95);
+        }
+        75% {
+            transform: translateY(-20px) rotate(calc(var(--orbit) * 7deg)) scale(1.1);
+        }
+    }
+
+    .team-member-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .team-member-card.expanded .member-details {
+        max-height: 500px;
+    }
+
+    .team-member-card.expanded .expand-btn span {
+        transform: rotate(45deg);
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const memberCards = document.querySelectorAll('.team-member-card');
+
+        // Expand/collapse functionality
+        memberCards.forEach(card => {
+            card.addEventListener('click', function () {
+                const isExpanding = !this.classList.contains('expanded');
+                const memberId = this.dataset.memberId;
+                
+                // Close other expanded cards
+                memberCards.forEach(otherCard => {
+                    if (otherCard !== card) {
+                        otherCard.classList.remove('expanded');
+                    }
+                });
+
+                // Toggle current card
+                this.classList.toggle('expanded');
+                
+                // If expanding, stop rotation (but don't rotate)
+                if (isExpanding) {
+                    stopRotation();
+                    rotateToMember(memberId);
+                } else {
+                    // If collapsing, restart rotation
+                    startRotation();
+                }
+            });
+        });
+
+        // Member navigation buttons
+        const memberNavBtns = document.querySelectorAll('.member-nav-btn');
+        const scrollToTeamBtn = document.querySelector('.scroll-to-team');
+
+        memberNavBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                const memberId = this.dataset.memberId;
+                const targetCard = document.querySelector(`.team-member-card[data-member-id="${memberId}"]`);
+
+                // Stop auto-rotation and rotate visual stack to the selected member
+                stopRotation();
+                rotateToMember(memberId);
+
+                if (targetCard) {
+                    // Scroll to the card
+                    targetCard.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+
+                    // Expand the card after scroll
+                    setTimeout(() => {
+                        // Close other cards
+                        memberCards.forEach(card => {
+                            card.classList.remove('expanded');
+                        });
+                        // Expand target card
+                        targetCard.classList.add('expanded');
+                    }, 500);
+                }
+            });
+        });
+
+        scrollToTeamBtn.addEventListener('click', function () {
+            // Expand the card of the currently centered member
+            const centered = document.querySelector('.team-member-position[data-position="center"]');
+            if (!centered) return;
+
+            const centerMemberId = centered.getAttribute('data-member-id');
+            const targetCard = document.querySelector(`.team-member-card[data-member-id="${centerMemberId}"]`);
+
+            // Stop rotation while reading details
+            stopRotation();
+
+            if (targetCard) {
+                targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => {
+                    memberCards.forEach(card => {
+                        if (card !== targetCard) card.classList.remove('expanded');
+                    });
+                    targetCard.classList.add('expanded');
+                }, 400);
+            }
+        });
+
+        // Team rotation functionality
+        let currentRotation = 0;
+        let rotationInterval = null;
+        const teamPositions = document.querySelectorAll('.team-member-position');
+        const positions = ['center', 'left', 'right'];
+        
+        function rotateTeam() {
+            // Find which member is moving to center
+            let centerMemberIndex = null;
+            
+            teamPositions.forEach((position, index) => {
+                // Rotate forward in natural order: center -> left -> right -> center
+                // Use subtraction so one step moves left to center, then right to center
+                const newPositionIndex = (index - currentRotation + positions.length) % positions.length;
+                position.setAttribute('data-position', positions[newPositionIndex]);
+                
+                // Track which member is now in center
+                if (positions[newPositionIndex] === 'center') {
+                    centerMemberIndex = index;
+                }
+            });
+            
+            // Update navigation buttons and team cards highlighting
+            if (centerMemberIndex !== null) {
+                // Find the member ID that's now in center
+                let centerMemberId = null;
+                teamPositions.forEach(position => {
+                    if (position.getAttribute('data-position') === 'center') {
+                        centerMemberId = position.getAttribute('data-member-id');
+                    }
+                });
+                
+                // Update nav buttons
+                memberNavBtns.forEach(btn => {
+                    btn.classList.remove('bg-red-200', 'bg-blue-200', 'bg-purple-200');
+                    btn.classList.add('bg-gray-100');
+                    
+                    if (btn.dataset.memberId === centerMemberId) {
+                        btn.classList.remove('bg-gray-100');
+                        // Different colors for each person
+                        if (centerMemberId === '1') btn.classList.add('bg-red-200');
+                        else if (centerMemberId === '2') btn.classList.add('bg-blue-200');
+                        else if (centerMemberId === '3') btn.classList.add('bg-purple-200');
+                    }
+                });
+                
+                // Update team member cards highlighting
+                memberCards.forEach(card => {
+                    card.classList.remove('bg-red-50', 'border-red-200', 'bg-blue-50', 'border-blue-200', 'bg-purple-50', 'border-purple-200');
+                    
+                    if (card.dataset.memberId === centerMemberId) {
+                        // Different colors for each person
+                        if (centerMemberId === '1') {
+                            card.classList.add('bg-red-50', 'border-red-200');
+                        } else if (centerMemberId === '2') {
+                            card.classList.add('bg-blue-50', 'border-blue-200');
+                        } else if (centerMemberId === '3') {
+                            card.classList.add('bg-purple-50', 'border-purple-200');
+                        }
+                    }
+                });
+            }
+            
+            currentRotation = (currentRotation + 1) % positions.length;
+        }
+        
+        function startRotation() {
+            if (rotationInterval) clearInterval(rotationInterval);
+            rotationInterval = setInterval(rotateTeam, 4000);
+        }
+        
+        function stopRotation() {
+            if (rotationInterval) {
+                clearInterval(rotationInterval);
+                rotationInterval = null;
+            }
+        }
+        
+        function rotateToMember(memberId) {
+            // Find current center member's ID
+            let currentCenterMemberId = null;
+            teamPositions.forEach(position => {
+                if (position.getAttribute('data-position') === 'center') {
+                    currentCenterMemberId = position.getAttribute('data-member-id');
+                }
+            });
+            
+            // If already in center, do nothing
+            if (currentCenterMemberId === memberId) {
+                return;
+            }
+            
+            // Find target member's current position
+            let targetPosition = null;
+            teamPositions.forEach(position => {
+                if (position.getAttribute('data-member-id') === memberId) {
+                    targetPosition = position.getAttribute('data-position');
+                }
+            });
+            
+            // Calculate rotations needed based on position
+            let rotationsNeeded = 0;
+            if (targetPosition === 'left') {
+                rotationsNeeded = 1;
+            } else if (targetPosition === 'right') {
+                rotationsNeeded = 2;
+            }
+            
+            // Apply the rotations
+            for (let i = 0; i < rotationsNeeded; i++) {
+                rotateTeam();
+            }
+        }
+        
+        // Start rotation immediately, then auto-rotate every 4 seconds
+        rotateTeam();
+        startRotation();
+        
+        // Floating tech hover behavior removed; motion path elements are decorative
+    });
+</script>
