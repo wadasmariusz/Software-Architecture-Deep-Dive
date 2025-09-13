@@ -1,3 +1,8 @@
+---
+// Google Analytics configuration
+const GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
+---
+
 <!doctype html>
 <html lang="pl">
 	<head>
@@ -8,6 +13,19 @@
 		<meta name="description" content="Engineering Room" />
 		<meta name="keywords" content="architektura oprogramowania, .NET" />
 		<title>Engineering Room</title>
+
+		<!-- Google Analytics -->
+		{GA_TRACKING_ID && (
+			<>
+				<script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}></script>
+				<script is:inline define:vars={{ GA_TRACKING_ID }}>
+					window.dataLayer = window.dataLayer || [];
+					function gtag(){dataLayer.push(arguments);}
+					gtag('js', new Date());
+					gtag('config', GA_TRACKING_ID);
+				</script>
+			</>
+		)}
 	</head>
 	<body>
 		<slot />
@@ -35,6 +53,104 @@
 
         elements.forEach((el) => io.observe(el));
       })();
+    </script>
+
+    <!-- Google Analytics Event Tracking -->
+    <script is:inline define:vars={{ GA_TRACKING_ID }}>
+      if (GA_TRACKING_ID && typeof window !== 'undefined') {
+        // Helper function to track events
+        function trackEvent(eventName, parameters = {}) {
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', eventName, parameters);
+          }
+        }
+
+        // Initialize tracking when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+          
+          // Track CTA button clicks in Hero section
+          const heroCTAButton = document.querySelector('a[href="#cta-newsletter"]');
+          if (heroCTAButton) {
+            heroCTAButton.addEventListener('click', function() {
+              trackEvent('cta_click', {
+                event_category: 'engagement',
+                event_label: 'hero_cta_button'
+              });
+            });
+          }
+
+          // Track newsletter subscription attempts
+          const newsletterForms = document.querySelectorAll('form[action="#"], form#newsletter');
+          newsletterForms.forEach((form, index) => {
+            form.addEventListener('submit', function(e) {
+              trackEvent('newsletter_signup_attempt', {
+                event_category: 'conversion',
+                event_label: index === 0 ? 'main_cta_form' : 'footer_form'
+              });
+            });
+          });
+
+          // Track scroll depth milestones
+          let scrollTracked = { 25: false, 50: false, 75: false, 100: false };
+          
+          function trackScrollDepth() {
+            const scrollPercentage = Math.round(
+              (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+            );
+            
+            Object.keys(scrollTracked).forEach(depth => {
+              if (scrollPercentage >= depth && !scrollTracked[depth]) {
+                scrollTracked[depth] = true;
+                trackEvent('scroll_depth', {
+                  event_category: 'engagement',
+                  event_label: depth + '_percent',
+                  value: parseInt(depth)
+                });
+              }
+            });
+          }
+
+          // Throttled scroll tracking
+          let scrollTimeout;
+          window.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(trackScrollDepth, 250);
+          });
+
+          // Track section visibility
+          const sections = document.querySelectorAll('section[id]');
+          if (sections.length > 0 && 'IntersectionObserver' in window) {
+            const sectionObserver = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting && entry.target.id) {
+                  trackEvent('section_view', {
+                    event_category: 'engagement',
+                    event_label: entry.target.id
+                  });
+                }
+              });
+            }, { threshold: 0.3 });
+
+            sections.forEach(section => sectionObserver.observe(section));
+          }
+
+          // Track pricing interactions
+          const pricingSection = document.getElementById('pricing');
+          if (pricingSection) {
+            pricingSection.addEventListener('click', function(e) {
+              const pricingCard = e.target.closest('.rounded-xl.border.border-zinc-200');
+              if (pricingCard) {
+                const isIndividual = pricingCard.textContent.includes('indywidualny');
+                trackEvent('pricing_option_click', {
+                  event_category: 'conversion',
+                  event_label: isIndividual ? 'individual_ticket' : 'company_ticket'
+                });
+              }
+            });
+          }
+
+        });
+      }
     </script>
 	</body>
 </html>
