@@ -1,10 +1,6 @@
-# Astro Starter Kit: Basics
+# Software Architecture Deep Dive
 
-```sh
-npm create astro@latest -- --template basics
-```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+This is the repository for the Engineering Room's Software Architecture Deep Dive course website built with Astro.js.
 
 ## 🚀 Project Structure
 
@@ -40,6 +36,10 @@ All commands are run from the root of the project, from a terminal:
 | `npm run preview`         | Preview your build locally, before deploying     |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## 📊 Analytics
+
+This site includes Hotjar integration for user behavior analysis. See [HOTJAR.md](./HOTJAR.md) for setup instructions.
 
 ## 👀 Want to learn more?
 
