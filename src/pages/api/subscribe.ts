@@ -2,7 +2,6 @@
 // src/pages/api/subscribe.ts
 export const prerender = false;
 import type { APIRoute } from "astro";
-import { MAILERLITE_API_TOKEN, MAILERLITE_GROUP_ID } from "astro:env/server";
 
 export const POST: APIRoute = async ({ request }) => {
     const data = await request.formData();
@@ -13,6 +12,7 @@ export const POST: APIRoute = async ({ request }) => {
     if (bot || !email) return new Response("Bad Request", { status: 400 });
 
     // Ensure required env vars are present (avoid silent 401 from upstream)
+    const { MAILERLITE_API_TOKEN, MAILERLITE_GROUP_ID } = process.env as Record<string, string | undefined>;
     if (!MAILERLITE_API_TOKEN || !MAILERLITE_GROUP_ID) {
         return new Response("Server misconfigured: missing MailerLite credentials.", { status: 500 });
     }
