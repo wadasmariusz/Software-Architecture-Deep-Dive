@@ -1,5 +1,6 @@
 ---
 import Logo from '../assets/favicon-192x192.png';
+import NewsletterPopup from './NewsletterPopup.astro';
 ---
 <!-- NAVBAR -->
 <nav class="fixed top-0 w-full z-50 bg-white border-b border-gray-200 shadow-sm reveal-down" style="transition-delay:20ms">
@@ -23,7 +24,7 @@ import Logo from '../assets/favicon-192x192.png';
 
             <!-- Desktop CTA + Lang + GitHub -->
             <div class="hidden md:flex items-center gap-4">
-                <a href="#cta-kurs" class="rounded-md bg-accent px-3 py-1.5 text-sm text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-accent/20 lift">Dołącz</a>
+                <a href="#cta-kurs" data-open-newsletter class="rounded-md bg-accent px-3 py-1.5 text-sm text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-accent/20 lift">Dołącz</a>
             </div>
 
             <!-- Mobile menu button -->
@@ -53,7 +54,7 @@ import Logo from '../assets/favicon-192x192.png';
             <a href="#faq" class="block rounded-md px-2 py-2 text-sm hover:bg-gray-50 hover:text-accent transition-colors">FAQ</a>
 
             <div class="pt-3 flex items-center justify-between">
-            <a href="#cta-kurs" class="rounded-md bg-accent px-3 py-2 text-sm text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-accent/20 transition lift">Dołącz</a>
+            <a href="#cta-kurs" data-open-newsletter class="rounded-md bg-accent px-3 py-2 text-sm text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-accent/20 transition lift">Dołącz</a>
                 <div class="flex items-center gap-2 text-sm text-gray-500" aria-label="Language switcher">
                     <button class="hover:text-accent">PL</button>/<button class="hover:text-accent">EN</button>
                 </div>
@@ -79,6 +80,9 @@ import Logo from '../assets/favicon-192x192.png';
     <!-- page content -->
 </main>
 
+<!-- Newsletter Popup (hidden by default; opened via CTA) -->
+<NewsletterPopup />
+
 <script>
     // @ts-nocheck
     (function () {
@@ -86,6 +90,7 @@ import Logo from '../assets/favicon-192x192.png';
         const menu = document.getElementById('mobileMenu');
         const iconOpen = document.getElementById('iconHamburger');
         const iconClose = document.getElementById('iconClose');
+        // Use event delegation so buttons added later still work
 
         function toggleMenu() {
             if (!menu || !iconOpen || !iconClose || !btn) return;
@@ -102,6 +107,20 @@ import Logo from '../assets/favicon-192x192.png';
         }
 
         if (btn) btn.addEventListener('click', () => toggleMenu());
+
+        // Open Newsletter popup from any element with [data-open-newsletter]
+        document.addEventListener('click', (e) => {
+            const target = e.target;
+            if (!target) return;
+            // @ts-ignore - using closest is fine in runtime
+            const trigger = target.closest && target.closest('[data-open-newsletter]');
+            if (trigger) {
+                e.preventDefault();
+                if (typeof window !== 'undefined' && typeof window.openNewsletterPopup === 'function') {
+                    window.openNewsletterPopup();
+                }
+            }
+        });
 
         // Zamknij klawiszem ESC
         document.addEventListener('keydown', (e) => {

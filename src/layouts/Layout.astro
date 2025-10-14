@@ -1,5 +1,6 @@
 ---
 import CookieConsent from "../components/CookieConsent.astro";
+import NewsletterPopup from "../components/NewsletterPopup.astro";
 ---
 <!doctype html>
 <html lang="pl">
@@ -79,6 +80,7 @@ import CookieConsent from "../components/CookieConsent.astro";
         elements.forEach((el) => io.observe(el));
       })();
 	    </script>
+	    <NewsletterPopup />
 	    <CookieConsent />
 	</body>
 </html>

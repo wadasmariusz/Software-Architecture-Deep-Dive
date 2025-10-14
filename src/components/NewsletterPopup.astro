@@ -1,0 +1,211 @@
+---
+// Provide simple defaults so component works without global i18n
+interface Props {
+  locale?: 'pl' | 'en'
+  t?: {
+    newsletter: {
+      heading: string
+      subheading: string
+      emailPlaceholder: string
+      subscribeButton: string
+      gdprText: string
+      gdprLink: string
+    }
+  }
+}
+
+const { locale = 'pl', t: tProp }: Props = Astro.props as Props
+
+const t = tProp ?? {
+  newsletter: {
+    heading: locale === 'pl' ? 'Dołącz do newslettera' : 'Join the newsletter',
+    subheading: locale === 'pl' ? 'Zapisz się, aby otrzymywać aktualizacje i materiały.' : 'Subscribe for updates and materials.',
+    emailPlaceholder: locale === 'pl' ? 'Twój e-mail' : 'Your email',
+    subscribeButton: locale === 'pl' ? 'Zapisz się' : 'Subscribe',
+    gdprText: locale === 'pl' ? 'Twoje dane są bezpieczne. Szczegóły w' : 'Your data is safe. Details in',
+    gdprLink: locale === 'pl' ? 'polityce prywatności' : 'privacy policy',
+  }
+}
+---
+
+<div id="newsletter-popup" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div class="mx-4 max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl">
+        <!-- Header -->
+        <div class="relative bg-gradient-to-r from-accent to-accent/80 px-6 py-8 text-white">
+            <button
+                    id="close-popup"
+                    class="absolute right-4 top-4 rounded-full p-1 hover:bg-white/20 transition-colors"
+                    aria-label="Close popup"
+            >
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 6L6 18"/><path d="M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="flex items-center gap-3">
+                <div class="rounded-full bg-white/20 p-3">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16v16H4z"/><path d="M4 7l8 6 8-6"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold">Zostań na bieżąco</h3>
+                    <p class="text-white/90 text-sm">Otrzymuj najnowsze artykuły i aktualizacje bezpośrednio na swoją skrzynkę pocztową.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="px-6 py-6">
+            <form id="newsletter-form" class="space-y-4">
+                <input
+                        type="hidden"
+                        name="company"
+                        value=""
+                >
+                <div>
+                    <label for="popup-email" class="block text-sm font-medium text-zinc-700 mb-2">
+                        Twój adres email
+                    </label>
+                    <input
+                            id="popup-email"
+                            name="email"
+                            type="email"
+                            required
+                            placeholder="Twój adres email"
+                            class="w-full rounded-lg border border-zinc-300 bg-white px-4 py-3 text-zinc-900 placeholder-zinc-400 shadow-sm focus:border-accent/40 focus:outline-none focus:ring-2 focus:ring-accent/20"
+                    >
+                </div>
+
+                <button
+                        type="submit"
+                        class="w-full rounded-lg bg-accent px-6 py-3 text-white font-semibold shadow-sm hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                    <span class="submit-text">Subskrybuj</span>
+                    <span class="loading-text hidden">Subscribing...</span>
+                </button>
+
+                <p class="text-xs text-zinc-500 leading-relaxed mt-3">
+                    Zapisując się do społeczności engineering-room.pl zgadzasz się na przetwarzanie Twoich danych osobowych w celu wysyłania na wskazany przez Ciebie adres e-mail informacji handlowych o nowościach, promocjach, produktach i usługach związanych z serwisem engineering-room.pl. Będzie to marketing bezpośredni, do realizacji którego wykorzystamy Twoje telekomunikacyjne urządzenia końcowe. Administratorem Twoich danych osobowych będzie DEVCODI spółka z ograniczoną odpowiedzialnością z siedzibą w Rzeszowie na ul. Adama Matuszczaka 14, 35-083 Rzeszów NIP: 8133859866. Przysługuje Tobie prawo do cofnięcia zgody, żądania wglądu do Twoich danych, wniesienia sprzeciwu co do ich przetwarzania, sprostowania, usunięcia i ograniczenia przetwarzania. Więcej informacji o tym jak przetwarzamy Twoje dane znajdziesz na <a href="https://engineering-room.pl/rodo" class="text-accent hover:underline" target="_blank">engineering-room.pl/rodo</a>
+                </p>
+            </form>
+
+            <!-- Benefits -->
+            <!--<div class="mt-6 pt-6 border-t border-zinc-100">-->
+            <!--    <p class="text-sm text-zinc-600 mb-3">What you'll get:</p>-->
+            <!--    <ul class="space-y-2 text-sm text-zinc-700">-->
+            <!--        &lt;!&ndash;<li class="flex items-center gap-2">&ndash;&gt;-->
+            <!--        &lt;!&ndash;  <svg class="h-4 w-4 text-green-500" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">&ndash;&gt;-->
+            <!--        &lt;!&ndash;    <path d="M20 6L9 17l-5-5"/>&ndash;&gt;-->
+            <!--        &lt;!&ndash;  </svg>&ndash;&gt;-->
+            <!--        &lt;!&ndash;  Weekly updates&ndash;&gt;-->
+            <!--        &lt;!&ndash;</li>&ndash;&gt;-->
+            <!--        <li class="flex items-center gap-2">-->
+            <!--            <svg class="h-4 w-4 text-green-500" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">-->
+            <!--                <path d="M20 6L9 17l-5-5"/>-->
+            <!--            </svg>-->
+            <!--            Exclusive content-->
+            <!--        </li>-->
+            <!--        <li class="flex items-center gap-2">-->
+            <!--            <svg class="h-4 w-4 text-green-500" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">-->
+            <!--                <path d="M20 6L9 17l-5-5"/>-->
+            <!--            </svg>-->
+            <!--            Early access for features-->
+            <!--        </li>-->
+            <!--    </ul>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+
+<script>
+    function initNewsletterPopup() {
+        const popup = document.getElementById('newsletter-popup');
+        const closeBtn = document.getElementById('close-popup');
+        const form = document.getElementById('newsletter-form');
+        const submitBtn = form?.querySelector('button[type="submit"]');
+        const submitText = submitBtn?.querySelector('.submit-text');
+        const loadingText = submitBtn?.querySelector('.loading-text');
+
+        function openPopup() {
+            popup?.classList.remove('hidden');
+            popup?.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePopup() {
+            popup?.classList.add('hidden');
+            popup?.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        // Close popup handlers
+        closeBtn?.addEventListener('click', closePopup);
+        popup?.addEventListener('click', (e) => {
+            if (e.target === popup) closePopup();
+        });
+
+        // Escape key handler
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !popup?.classList.contains('hidden')) {
+                closePopup();
+            }
+        });
+
+        // Form submission
+        form?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!submitBtn || !submitText || !loadingText) return;
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitText.classList.add('hidden');
+            loadingText.classList.remove('hidden');
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    // Success - show success message and close
+                    form.innerHTML = `
+            <div class="text-center py-4">
+              <div class="rounded-full bg-green-100 p-3 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <svg class="h-8 w-8 text-green-500" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6L9 17l-5-5"/>
+                </svg>
+              </div>
+              <h4 class="text-lg font-semibold text-zinc-900 mb-2">Successfully subscribed!</h4>
+              <p class="text-sm text-zinc-600">Thank you for subscribing to our newsletter.</p>
+            </div>
+          `;
+
+                    setTimeout(closePopup, 2000);
+                } else {
+                    throw new Error('Subscription failed');
+                }
+            } catch (error) {
+                // Error state
+                console.error('Newsletter subscription error:', error);
+                alert('Something went wrong. Please try again.');
+
+                // Reset button state
+                submitBtn.disabled = false;
+                submitText.classList.remove('hidden');
+                loadingText.classList.add('hidden');
+            }
+        });
+
+        // Expose openPopup globally
+        // Expose globally for external triggers
+        window.openNewsletterPopup = openPopup;
+    }
+
+    // Initialize on load and on view transitions
+    initNewsletterPopup();
+    document.addEventListener('astro:after-swap', initNewsletterPopup);
+</script>
