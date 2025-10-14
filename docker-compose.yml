@@ -1,5 +1,5 @@
 services:
-  astro:
+  sadd:
     build:
       context: .
     expose:
@@ -15,4 +15,4 @@ services:
     ports:
       - "1101:8080"
     depends_on:
-      - astro
+      - sadd

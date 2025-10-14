@@ -1,14 +1,18 @@
-﻿# 1) Budowanie Astro (SSR)
+﻿# 1) Budowanie Astro (SSR) z pnpm
 FROM node:lts AS build
 WORKDIR /app
 
-# Instalacja zależności
+# Włącz Corepack i pnpm
+RUN corepack enable
+
+# Instalacja zależności z cache lockfile
 COPY package*.json ./
-RUN npm install
+COPY pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
 # Skopiuj resztę projektu i zbuduj
 COPY . .
-RUN npm run build
+RUN pnpm run build
 
 # 2) Serwowanie buildu statycznego przez Astro Preview
 FROM node:lts AS runtime
