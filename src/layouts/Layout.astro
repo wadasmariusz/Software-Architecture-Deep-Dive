@@ -1,3 +1,6 @@
+---
+import CookieConsent from "../components/CookieConsent.astro";
+---
 <!doctype html>
 <html lang="pl">
 	<head>
@@ -7,11 +10,51 @@
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content="Engineering Room" />
 		<meta name="keywords" content="architektura oprogramowania, .NET" />
-		<title>Engineering Room</title>
+			<title>Engineering Room</title>
+			<script>
+			  // Ładowanie analityki (GTM + Contentsquare) tylko po zgodzie
+			  (function () {
+			    function getCookie(name) {
+			      const value = `; ${document.cookie}`;
+			      const parts = value.split(`; ${name}=`);
+			      if (parts.length === 2) return parts.pop().split(';').shift();
+			      return null;
+			    }
+
+			    function loadGTM() {
+			      if (window.__gtmLoaded) return;
+			      window.__gtmLoaded = true;
+			      (function(w,d,s,l,i){
+			        w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+			        var f=d.getElementsByTagName(s)[0], j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
+			        j.async=true; j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+			        f.parentNode.insertBefore(j,f);
+			      })(window,document,'script','dataLayer','GTM-KV8WJWS8');
+			    }
+
+			    function loadCS() {
+			      if (window.__csLoaded) return;
+			      window.__csLoaded = true;
+			      const s = document.createElement('script');
+			      s.src = 'https://t.contentsquare.net/uxa/926c9a492a258.js';
+			      s.async = true;
+			      document.head.appendChild(s);
+			    }
+
+			    window.__loadConsentTrackers = function () {
+			      loadGTM();
+			      loadCS();
+			    };
+
+			    if (getCookie('cs_consent') === 'accepted') {
+			      window.__loadConsentTrackers();
+			    }
+			  })();
+			</script>
 	</head>
 	<body>
 		<slot />
-    <script>
+	    <script>
       // Minimal IntersectionObserver do ujawniania elementów w scrollu
       (function () {
         const selector = '.reveal, .reveal-up, .reveal-down, .reveal-left, .reveal-right';
@@ -35,7 +78,8 @@
 
         elements.forEach((el) => io.observe(el));
       })();
-    </script>
+	    </script>
+	    <CookieConsent />
 	</body>
 </html>
 

@@ -1,0 +1,489 @@
+---
+// TeamSection.astro
+export interface Props {
+    class?: string;
+}
+
+const { class: className } = Astro.props;
+
+// Dane zespołu - łatwe do rozbudowy
+const teamMembers = [
+    {
+        id: 1,
+        name: "Mariusz Wadas",
+        position: "Software Architect, Trainer, Mentor",
+        bio: "Architekt oprogramowania i mentor z wieloletnim doświadczeniem w C#. Specjalizuje się w projektowaniu skalowalnych systemów, dzieląc się wiedzą i wspierając rozwój młodszych programistów.",
+        image: "/images/mariusz_wadas_200x200_transparent.png",
+        social: {
+            linkedin: "#",
+            github: "#",
+        }
+    },
+    {
+        id: 2,
+        name: "Kamil Bączek",
+        position: "Software Architect, Trainer, Mentor",
+        bio: "Architekt oprogramowania i mentor z wieloletnim doświadczeniem w C#. Specjalizuje się w projektowaniu skalowalnych systemów, dzieląc się wiedzą i wspierając rozwój młodszych programistów.",
+        image: "/images/kamil_baczek_transparent.png",
+        social: {
+            linkedin: "#",
+            github: "#",
+        }
+    },
+    {
+        id: 3,
+        name: "Paweł Wadas",
+        position: "Software Architect, Trainer, Mentor",
+        bio: "Architekt oprogramowania i mentor z wieloletnim doświadczeniem w C#. Specjalizuje się w projektowaniu skalowalnych systemów, dzieląc się wiedzą i wspierając rozwój młodszych programistów.",
+        image: "/images/pawelwadas-foto.png",
+        social: {
+            linkedin: "#",
+            github: "#"
+        }
+    }
+];
+---
+
+<section class={`py- lg:py-24 bg-gradient-to-br from-gray-50 to-white ${className}`}>
+    <div class="container mx-auto px-4 max-w-7xl">
+        <!-- Desktop/Tablet Layout -->
+        <div class="hidden md:grid md:grid-cols-3 gap-8 lg:gap-12 items-center">
+
+            <!-- Lewa strona - Opis zespołu -->
+            <div class="space-y-6 animate-fade-in">
+                <div>
+                    <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
+                        Nasz Zespół
+                    </h2>
+                    <div class="h-1 w-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
+                </div>
+
+                <div class="space-y-4 text-gray-600">
+                    <p class="text-lg leading-relaxed">
+                        Jesteśmy grupą pasjonatów, którzy wierzą w siłę współpracy i innowacji.
+                    </p>
+                    <p class="leading-relaxed">
+                        Nasza misja to tworzenie rozwiązań, które mają realny wpływ na świat. Łączymy ekspertyzę z różnych dziedzin, aby dostarczać wyjątkowe produkty i usługi.
+                    </p>
+                    <p class="leading-relaxed">
+                        Cenimy kreatywność, uczciwość i ciągły rozwój. Każdy członek naszego zespołu wnosi unikalną perspektywę i doświadczenie.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Środek - Slider ze zdjęciami -->
+            <div class="relative flex items-center justify-center" id="image-slider">
+                <!-- Poprzednie zdjęcie -->
+                <div class="absolute -left-12 lg:-left- z-10 transition-all duration-500 cursor-pointer hover:scale-105"
+                     id="prev-image-wrapper">
+                    <img
+                            id="prev-image"
+                            class="w-24 h-24 lg:w-32 lg:h-32 rounded-2xl object-cover opacity-40 blur-[1px] hover:opacity-60 hover:blur-0 transition-all duration-300"
+                            src=""
+                            alt="Previous team member"
+                    />
+                </div>
+
+                <!-- Główne zdjęcie -->
+                <div class="relative z-20">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl blur-2xl opacity-20 scale-110"></div>
+                    <img
+                            id="main-image"
+                            class="relative w-64 h-64 lg:w-80 lg:h-80 rounded-3xl object-cover shadow-2xl transition-all duration-500 transform hover:scale-[1.02]"
+                            src=""
+                            alt="Current team member"
+                    />
+                </div>
+
+                <!-- Następne zdjęcie -->
+                <div class="absolute -right-12 lg:-right- z-10 transition-all duration-500 cursor-pointer hover:scale-105"
+                     id="next-image-wrapper">
+                    <img
+                            id="next-image"
+                            class="w-24 h-24 lg:w-32 lg:h-32 rounded-2xl object-cover opacity-40 blur-[1px] hover:opacity-60 hover:blur-0 transition-all duration-300"
+                            src=""
+                            alt="Next team member"
+                    />
+                </div>
+
+                <!-- Kontrolki nawigacji -->
+                <button
+                        id="prev-btn"
+                        class="absolute left-0 lg:-left-8 z-30 bg-white/90 backdrop-blur-sm p-2 lg:p-3 rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300 group"
+                        aria-label="Previous team member"
+                >
+                    <svg class="w-5 h-5 lg:w-6 lg:h-6 text-gray-700 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                <button
+                        id="next-btn"
+                        class="absolute right-0 lg:-right-8 z-30 bg-white/90 backdrop-blur-sm p-2 lg:p-3 rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300 group"
+                        aria-label="Next team member"
+                >
+                    <svg class="w-5 h-5 lg:w-6 lg:h-6 text-gray-700 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Prawa strona - Opis osoby -->
+            <div class="space-y-6">
+                <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-xl border border-gray-100">
+                    <div class="space-y-4">
+                        <div>
+                            <h3 id="member-name" class="text-2xl lg:text-3xl font-bold text-gray-900 transition-all duration-300">
+                                <!-- Nazwa członka zespołu -->
+                            </h3>
+                            <p id="member-position" class="text-lg text-blue-600 font-medium mt-1 transition-all duration-300">
+                                <!-- Stanowisko -->
+                            </p>
+                        </div>
+
+                        <p id="member-bio" class="text-gray-600 leading-relaxed transition-all duration-300">
+                            <!-- Bio -->
+                        </p>
+
+                        <!-- Social Media -->
+                        <div id="member-social" class="flex gap-3 pt-4 border-t border-gray-100">
+                            <!-- Ikony social media -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wskaźniki -->
+                <div class="flex justify-center gap-2" id="indicators">
+                    <!-- Kropki wskaźnikowe -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Layout -->
+        <div class="md:hidden space-y-8">
+            <!-- Opis zespołu -->
+            <div class="text-center space-y-4">
+                <h2 class="text-3xl font-bold text-gray-900">Nasz Zespół</h2>
+                <div class="h-1 w-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto"></div>
+                <p class="text-gray-600 px-4">
+                    Jesteśmy grupą pasjonatów, którzy wierzą w siłę współpracy i innowacji.
+                </p>
+            </div>
+
+            <!-- Mobile Slider -->
+            <div class="relative">
+                <div class="overflow-hidden rounded-2xl">
+                    <div id="mobile-slider" class="flex transition-transform duration-500">
+                        <!-- Zdjęcia członków zespołu -->
+                    </div>
+                </div>
+
+                <!-- Mobile Navigation -->
+                <button
+                        id="mobile-prev-btn"
+                        class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-lg"
+                >
+                    <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                <button
+                        id="mobile-next-btn"
+                        class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-lg"
+                >
+                    <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Member Info -->
+            <div class="bg-white rounded-2xl p-6 shadow-xl border border-gray-100">
+                <h3 id="mobile-member-name" class="text-2xl font-bold text-gray-900">
+                    <!-- Nazwa -->
+                </h3>
+                <p id="mobile-member-position" class="text-blue-600 font-medium mt-1">
+                    <!-- Stanowisko -->
+                </p>
+                <p id="mobile-member-bio" class="text-gray-600 mt-4 leading-relaxed">
+                    <!-- Bio -->
+                </p>
+                <div id="mobile-member-social" class="flex gap-3 mt-6 pt-4 border-t border-gray-100">
+                    <!-- Social media -->
+                </div>
+            </div>
+
+            <!-- Mobile Indicators -->
+            <div class="flex justify-center gap-2" id="mobile-indicators">
+                <!-- Kropki -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 0.8s ease-out;
+    }
+</style>
+
+<script define:vars={{ teamMembers }}>
+    let currentIndex = 0;
+    const members = teamMembers;
+
+    // Funkcje pomocnicze
+    function getPrevIndex(current) {
+        return current === 0 ? members.length - 1 : current - 1;
+    }
+
+    function getNextIndex(current) {
+        return current === members.length - 1 ? 0 : current + 1;
+    }
+
+    // Generowanie ikon social media
+    function generateSocialIcons(social) {
+        if (!social) return '';
+
+        const icons = {
+            linkedin: `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>`,
+            twitter: `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>`,
+            github: `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.4-4.033-1.4-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>`,
+            behance: `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 7h-7v-2h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14h-8.027c.13 3.211 3.483 3.312 4.588 2.029h3.8zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988h-6.466v-14.967h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.207 8.061zm-3.466-8.988h3.584c2.508 0 2.906-3-.312-3h-3.272v3zm3.391 3h-3.391v3.0h3.341c3.055 0 2.868-3.0.05-3.0z"/></svg>`
+        };
+
+        return Object.entries(social).map(([platform, url]) =>
+            `<a href="${url}" target="_blank" rel="noopener noreferrer" 
+          class="p-2 bg-gray-100 rounded-lg hover:bg-blue-100 hover:text-blue-600 text-gray-600 transition-all duration-300 hover:scale-110">
+        ${icons[platform] || ''}
+      </a>`
+        ).join('');
+    }
+
+    // Aktualizacja wyświetlania - Desktop
+    function updateDisplay() {
+        const current = members[currentIndex];
+        const prev = members[getPrevIndex(currentIndex)];
+        const next = members[getNextIndex(currentIndex)];
+
+        // Aktualizacja zdjęć
+        const mainImage = document.getElementById('main-image');
+        const prevImage = document.getElementById('prev-image');
+        const nextImage = document.getElementById('next-image');
+
+        if (mainImage) {
+            mainImage.style.opacity = '0';
+            setTimeout(() => {
+                mainImage.src = current.image;
+                mainImage.style.opacity = '1';
+            }, 200);
+        }
+
+        if (prevImage) prevImage.src = prev.image;
+        if (nextImage) nextImage.src = next.image;
+
+        // Aktualizacja informacji
+        const nameEl = document.getElementById('member-name');
+        const positionEl = document.getElementById('member-position');
+        const bioEl = document.getElementById('member-bio');
+        const socialEl = document.getElementById('member-social');
+
+        if (nameEl) {
+            nameEl.style.opacity = '0';
+            setTimeout(() => {
+                nameEl.textContent = current.name;
+                nameEl.style.opacity = '1';
+            }, 200);
+        }
+
+        if (positionEl) {
+            positionEl.style.opacity = '0';
+            setTimeout(() => {
+                positionEl.textContent = current.position;
+                positionEl.style.opacity = '1';
+            }, 200);
+        }
+
+        if (bioEl) {
+            bioEl.style.opacity = '0';
+            setTimeout(() => {
+                bioEl.textContent = current.bio;
+                bioEl.style.opacity = '1';
+            }, 200);
+        }
+
+        if (socialEl) {
+            socialEl.style.opacity = '0';
+            setTimeout(() => {
+                socialEl.innerHTML = generateSocialIcons(current.social);
+                socialEl.style.opacity = '1';
+            }, 200);
+        }
+
+        // Aktualizacja wskaźników
+        updateIndicators();
+    }
+
+    // Aktualizacja wskaźników
+    function updateIndicators() {
+        const indicators = document.getElementById('indicators');
+        const mobileIndicators = document.getElementById('mobile-indicators');
+
+        if (indicators) {
+            indicators.innerHTML = members.map((_, index) =>
+                `<button 
+          class="w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex
+                        ? 'bg-blue-600 w-8'
+                        : 'bg-gray-300 hover:bg-gray-400'
+                }"
+          aria-label="Go to team member ${index + 1}"
+          data-index="${index}"
+        ></button>`
+            ).join('');
+
+            // Event listeners dla wskaźników
+            indicators.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    currentIndex = parseInt(e.currentTarget.dataset.index);
+                    updateDisplay();
+                });
+            });
+        }
+
+        if (mobileIndicators) {
+            mobileIndicators.innerHTML = members.map((_, index) =>
+                `<button 
+          class="w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex
+                        ? 'bg-blue-600 w-8'
+                        : 'bg-gray-300'
+                }"
+          data-index="${index}"
+        ></button>`
+            ).join('');
+
+            mobileIndicators.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    currentIndex = parseInt(e.currentTarget.dataset.index);
+                    updateMobileDisplay();
+                });
+            });
+        }
+    }
+
+    // Mobile Display
+    function setupMobileSlider() {
+        const mobileSlider = document.getElementById('mobile-slider');
+        if (mobileSlider) {
+            mobileSlider.innerHTML = members.map(member =>
+                `<img 
+          src="${member.image}" 
+          alt="${member.name}"
+          class="w-full h-80 object-cover flex-shrink-0"
+        />`
+            ).join('');
+        }
+    }
+
+    function updateMobileDisplay() {
+        const current = members[currentIndex];
+
+        // Update slider position
+        const mobileSlider = document.getElementById('mobile-slider');
+        if (mobileSlider) {
+            mobileSlider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        // Update info
+        const nameEl = document.getElementById('mobile-member-name');
+        const positionEl = document.getElementById('mobile-member-position');
+        const bioEl = document.getElementById('mobile-member-bio');
+        const socialEl = document.getElementById('mobile-member-social');
+
+        if (nameEl) nameEl.textContent = current.name;
+        if (positionEl) positionEl.textContent = current.position;
+        if (bioEl) bioEl.textContent = current.bio;
+        if (socialEl) socialEl.innerHTML = generateSocialIcons(current.social);
+
+        updateIndicators();
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+        // Desktop controls
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const prevImageWrapper = document.getElementById('prev-image-wrapper');
+        const nextImageWrapper = document.getElementById('next-image-wrapper');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                currentIndex = getPrevIndex(currentIndex);
+                updateDisplay();
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                currentIndex = getNextIndex(currentIndex);
+                updateDisplay();
+            });
+        }
+
+        if (prevImageWrapper) {
+            prevImageWrapper.addEventListener('click', () => {
+                currentIndex = getPrevIndex(currentIndex);
+                updateDisplay();
+            });
+        }
+
+        if (nextImageWrapper) {
+            nextImageWrapper.addEventListener('click', () => {
+                currentIndex = getNextIndex(currentIndex);
+                updateDisplay();
+            });
+        }
+
+        // Mobile controls
+        const mobilePrevBtn = document.getElementById('mobile-prev-btn');
+        const mobileNextBtn = document.getElementById('mobile-next-btn');
+
+        if (mobilePrevBtn) {
+            mobilePrevBtn.addEventListener('click', () => {
+                currentIndex = getPrevIndex(currentIndex);
+                updateMobileDisplay();
+            });
+        }
+
+        if (mobileNextBtn) {
+            mobileNextBtn.addEventListener('click', () => {
+                currentIndex = getNextIndex(currentIndex);
+                updateMobileDisplay();
+            });
+        }
+
+        // Initial setup
+        setupMobileSlider();
+        updateDisplay();
+        updateMobileDisplay();
+
+        // Auto-slide (opcjonalnie)
+        setInterval(() => {
+            currentIndex = getNextIndex(currentIndex);
+            updateDisplay();
+            updateMobileDisplay();
+        }, 5000); // Zmiana co 5 sekund
+    });
+</script>
