@@ -1,3 +1,7 @@
+---
+import FundingPopup from "./FundingPopup.astro";
+---
+
 <section id="pricing" class="relative isolate bg-zinc-50 py-16 sm:py-20">
   <div class="mx-auto max-w-4xl px-6 lg:px-8">
     <!-- Heading -->
@@ -29,6 +33,9 @@
           </p>
           <p class="mt-1 text-sm/6 text-white/90">Skontaktuj się z nami, aby poznać szczegóły i sprawdzić kwalifikację.</p>
         </div>
+        <a href="#funding" data-open-funding class="ml-auto inline-flex items-center rounded-md bg-white/90 px-3 py-2 text-sm font-semibold text-emerald-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-white/30 transition" aria-label="Zgłoś zainteresowanie dofinansowaniem">
+          Pobierz szczegółowe informacje
+        </a>
         <span class="absolute -top-1.5 -right-1.5 h-3 w-3 rounded-full bg-white/70 shadow ring-2 ring-white/40 animate-ping [animation-duration:1.6s]"></span>
         <span class="absolute -top-1.5 -right-1.5 h-3 w-3 rounded-full bg-white/90 shadow ring-2 ring-white/40"></span>
       </div>
@@ -53,3 +60,5 @@
 
   </div>
 </section>
+
+<FundingPopup />

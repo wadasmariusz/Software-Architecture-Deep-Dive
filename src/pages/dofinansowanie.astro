@@ -1,0 +1,104 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+---
+
+<Layout>
+  <Navbar />
+
+  <section class="relative isolate bg-zinc-50 py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-6 lg:px-8">
+      <div class="text-center reveal-up" style="transition-delay:40ms">
+        <h1 class="text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">Dofinansowanie Twojego szkolenia z Bazy Usług Rozwojowych (BUR)</h1>
+        <p class="mt-3 text-zinc-700">Możesz otrzymać nawet do 70% dofinansowania na nasze szkolenia w ramach programu BUR realizowanego przez PARP.</p>
+      </div>
+
+      <div class="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-zinc-200/60 reveal-up" style="transition-delay:70ms">
+        <h2 class="text-lg font-semibold text-zinc-900">Kto może skorzystać?</h2>
+        <ul class="mt-3 space-y-2 text-zinc-700">
+          <li>✅ osoby prowadzące jednoosobową działalność gospodarczą,</li>
+          <li>✅ małe i średnie firmy oraz ich pracownicy,</li>
+          <li>✅ osoby, które chcą rozwijać swoje kompetencje zawodowe.</li>
+        </ul>
+        <p class="mt-4 text-sm text-zinc-600">Dofinansowanie pozwala znacząco obniżyć koszt szkolenia, pokrywasz tylko część ceny, a resztę finansuje program wsparcia.</p>
+      </div>
+
+      <div class="mt-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-zinc-200/60 reveal-up" style="transition-delay:90ms">
+        <h2 class="text-lg font-semibold text-zinc-900">Jak to działa?</h2>
+        <p class="mt-2 text-zinc-700">Proces jest prosty, wystarczy kilka kroków, by uzyskać środki na szkolenie. Nie musisz robić tego samodzielnie, bo pomożemy Ci przejść przez wszystkie etapy: od znalezienia właściwego operatora po złożenie potrzebnych wniosków.</p>
+      </div>
+
+      <div class="mt-6 rounded-2xl bg-emerald-600/5 p-6 ring-1 ring-emerald-600/20 reveal-up" style="transition-delay:110ms">
+        <h2 class="text-lg font-semibold text-emerald-900">Chcesz dowiedzieć się więcej?</h2>
+        <p class="mt-2 text-emerald-900/80">Zostaw swój adres e‑mail - wyślemy kompletny przewodnik PDF z instrukcją krok po kroku, jak uzyskać dofinansowanie w Twoim regionie.</p>
+
+        <form id="funding-page-form" class="mt-4 space-y-3">
+          <input type="hidden" name="company" value="">
+          <label for="funding-page-email" class="block text-sm font-medium text-emerald-900">Twój adres e‑mail</label>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input id="funding-page-email" name="email" type="email" required placeholder="np. jan.kowalski@firma.pl" class="flex-1 rounded-lg border border-emerald-300 bg-white px-4 py-3 text-zinc-900 placeholder-zinc-400 shadow-sm focus:border-emerald-400/60 focus:outline-none focus:ring-2 focus:ring-emerald-300/40">
+            <button type="submit" class="rounded-lg bg-emerald-600 px-6 py-3 text-white font-semibold shadow-sm hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-300/40 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+              <span class="submit-text">Chcę otrzymać instrukcję</span>
+              <span class="loading-text hidden">Wysyłanie…</span>
+            </button>
+          </div>
+          <p class="text-xs text-emerald-900/70 leading-relaxed">
+            Zapisując się do społeczności engineering-room.pl zgadzasz się na przetwarzanie Twoich danych osobowych w celu wysyłania na wskazany przez Ciebie adres e-mail informacji handlowych o nowościach, promocjach, produktach i usługach związanych z serwisem engineering-room.pl. Będzie to marketing bezpośredni, do realizacji którego wykorzystamy Twoje telekomunikacyjne urządzenia końcowe. Administratorem Twoich danych osobowych będzie DEVCODI spółka z ograniczoną odpowiedzialnością z siedzibą w Rzeszowie na ul. Adama Matuszczaka 14, 35-083 Rzeszów NIP: 8133859866. Przysługuje Tobie prawo do cofnięcia zgody, żądania wglądu do Twoich danych, wniesienia sprzeciwu co do ich przetwarzania, sprostowania, usunięcia i ograniczenia przetwarzania. Więcej informacji o tym jak przetwarzamy Twoje dane znajdziesz na 
+            <a href="https://engineering-room.pl/rodo" class="text-emerald-800 underline" target="_blank" rel="noopener noreferrer">engineering-room.pl/rodo</a>
+          </p>
+        </form>
+      </div>
+
+      <div class="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-zinc-200/60 reveal-up" style="transition-delay:130ms">
+        <h2 class="text-lg font-semibold text-zinc-900">Dlaczego warto?</h2>
+        <ul class="mt-3 space-y-2 text-zinc-700">
+          <li>• Możesz zaoszczędzić nawet do 80–100% kosztu szkolenia</li>
+          <li>• Pomagamy przejść przez wszystkie formalności</li>
+          <li>• Dofinansowania dostępne są w całej Polsce</li>
+          <li>• Realna szansa na rozwój bez obciążania budżetu</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    (function () {
+      const form = document.getElementById('funding-page-form');
+      const submitBtn = form?.querySelector('button[type="submit"]');
+      const submitText = submitBtn?.querySelector('.submit-text');
+      const loadingText = submitBtn?.querySelector('.loading-text');
+      form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!submitBtn || !submitText || !loadingText) return;
+        submitBtn.disabled = true;
+        submitText.classList.add('hidden');
+        loadingText.classList.remove('hidden');
+        try {
+          const formData = new FormData(form);
+          const res = await fetch('/api/funding-subscribe', { method: 'POST', body: formData });
+          if (res.ok) {
+            form.innerHTML = `
+              <div class="text-center py-6">
+                <div class="rounded-full bg-green-100 p-3 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                  <svg class=\"h-8 w-8 text-green-600\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 6L9 17l-5-5\"/></svg>
+                </div>
+                <h2 class="text-xl font-semibold text-zinc-900 mb-2">Dziękujemy! ✔️</h2>
+                <p class="text-sm text-zinc-700">Wysłaliśmy przewodnik PDF na podany adres. W razie pytań - odezwiemy się.</p>
+              </div>`;
+          } else {
+            throw new Error('Submission failed');
+          }
+        } catch (err) {
+          alert('Coś poszło nie tak. Spróbuj ponownie.');
+          submitBtn.disabled = false;
+          submitText.classList.remove('hidden');
+          loadingText.classList.add('hidden');
+        }
+      });
+    })();
+  </script>
+</Layout>
